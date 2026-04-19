@@ -1,0 +1,78 @@
+# ===========================
+# .claudeignore — Simulador Crédito
+# ===========================
+
+# Version control
+.git/
+
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+**/dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# Cache
+.cache/
+.turbo/
+.parcel-cache/
+
+# IDE
+.vs/
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Archivos pesados o binarios
+*.zip
+*.tar.gz
+*.rar
+*.exe
+*.dll
+
+# Coverage y reportes de tests
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Environment (seguridad)
+.env
+.env.*
+!.env.example
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Assets grandes (Claude no puede procesarlos)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.mp4
+*.pdf
+public/images/
+public/fonts/
+
+# Lock files (no necesario leer)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+demo/dist/
+.vite/
+*.tsbuildinfo
+coverage/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+
+# Claude Code (no commitear settings personales)
+.claude/settings.local.json

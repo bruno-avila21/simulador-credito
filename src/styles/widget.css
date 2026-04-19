@@ -1,0 +1,822 @@
+/* ============================================================
+   Simulador de Crédito Prendario — Widget CSS
+   Todas las clases usan prefijo sc- para no colisionar con el host
+   ============================================================ */
+
+/* Variables CSS del tema light (default) */
+:root,
+[data-sc-tema="light"] {
+  --sc-color-primary: #2563eb;
+  --sc-color-primary-hover: #1d4ed8;
+  --sc-color-secondary: #f59e0b;
+  --sc-color-danger: #ef4444;
+  --sc-color-success: #22c55e;
+  --sc-color-warning-bg: #fef9c3;
+  --sc-color-warning-border: #fde047;
+  --sc-color-bg: #ffffff;
+  --sc-color-bg-secondary: #f9fafb;
+  --sc-color-bg-sutil: #f0f6ff;
+  --sc-color-text: #111827;
+  --sc-color-text-muted: #6b7280;
+  --sc-color-border: #e5e7eb;
+  --sc-color-border-focus: #93c5fd;
+  --sc-radius: 0.75rem;
+  --sc-radius-sm: 0.375rem;
+  --sc-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sc-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --sc-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sc-font-mono: ui-monospace, 'Cascadia Code', monospace;
+  --sc-transition: 0.15s ease;
+}
+
+/* Tema oscuro */
+[data-sc-tema="dark"] {
+  --sc-color-primary: #3b82f6;
+  --sc-color-primary-hover: #60a5fa;
+  --sc-color-secondary: #fbbf24;
+  --sc-color-danger: #f87171;
+  --sc-color-success: #4ade80;
+  --sc-color-warning-bg: #422006;
+  --sc-color-warning-border: #92400e;
+  --sc-color-bg: #111827;
+  --sc-color-bg-secondary: #1f2937;
+  --sc-color-bg-sutil: #1e3a5f;
+  --sc-color-text: #f9fafb;
+  --sc-color-text-muted: #9ca3af;
+  --sc-color-border: #374151;
+  --sc-color-border-focus: #3b82f6;
+}
+
+/* ============================================================
+   Contenedor principal
+   ============================================================ */
+.sc-simulador-container {
+  font-family: var(--sc-font);
+  color: var(--sc-color-text);
+  background-color: var(--sc-color-bg);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.sc-simulador-container *,
+.sc-simulador-container *::before,
+.sc-simulador-container *::after {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.sc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--sc-color-border);
+}
+
+.sc-titulo {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--sc-color-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sc-tna-info {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.sc-tna-info-label {
+  color: var(--sc-color-text-muted);
+}
+
+.sc-tna-info-valor {
+  font-weight: 600;
+  color: var(--sc-color-text);
+  font-family: var(--sc-font-mono);
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.sc-card {
+  background-color: var(--sc-color-bg);
+  border: 1px solid var(--sc-color-border);
+  border-radius: var(--sc-radius);
+  padding: 1.25rem;
+  box-shadow: var(--sc-shadow-sm);
+  margin-bottom: 1rem;
+}
+
+.sc-card--sutil {
+  background-color: var(--sc-color-bg-sutil);
+  border-color: var(--sc-color-primary);
+  border-left: 4px solid var(--sc-color-primary);
+}
+
+.sc-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ============================================================
+   Labels y secciones
+   ============================================================ */
+.sc-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sc-color-text-muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   Slider de monto
+   ============================================================ */
+.sc-slider-monto {
+  margin-bottom: 1.25rem;
+}
+
+.sc-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.sc-monto-display {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sc-color-primary);
+  font-family: var(--sc-font-mono);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--sc-radius-sm);
+  transition: background-color var(--sc-transition);
+}
+
+.sc-monto-display:hover {
+  background-color: var(--sc-color-bg-secondary);
+}
+
+.sc-monto-input {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sc-color-primary);
+  font-family: var(--sc-font-mono);
+  border: 2px solid var(--sc-color-border-focus);
+  border-radius: var(--sc-radius-sm);
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  background-color: var(--sc-color-bg);
+  width: 14ch;
+}
+
+.sc-range-wrapper {
+  padding: 0.25rem 0;
+}
+
+.sc-range-input {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    var(--sc-color-primary) 0%,
+    var(--sc-color-primary) var(--sc-range-pct, 50%),
+    var(--sc-color-border) var(--sc-range-pct, 50%),
+    var(--sc-color-border) 100%
+  );
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.sc-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sc-color-primary);
+  cursor: pointer;
+  border: 3px solid var(--sc-color-bg);
+  box-shadow: 0 0 0 2px var(--sc-color-primary);
+  transition: box-shadow var(--sc-transition);
+}
+
+.sc-range-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sc-color-primary);
+  cursor: pointer;
+  border: 3px solid var(--sc-color-bg);
+  box-shadow: 0 0 0 2px var(--sc-color-primary);
+}
+
+.sc-range-input:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px var(--sc-color-border-focus);
+}
+
+.sc-slider-limits {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.375rem;
+}
+
+.sc-limit-text {
+  font-size: 0.75rem;
+  color: var(--sc-color-text-muted);
+  font-family: var(--sc-font-mono);
+}
+
+.sc-slider-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* ============================================================
+   Selector de plazo
+   ============================================================ */
+.sc-selector-plazo {
+  margin-bottom: 1.25rem;
+}
+
+.sc-plazo-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sc-btn-plazo {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--sc-color-border);
+  border-radius: var(--sc-radius-sm);
+  background-color: var(--sc-color-bg);
+  color: var(--sc-color-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--sc-transition), background-color var(--sc-transition), color var(--sc-transition);
+}
+
+.sc-btn-plazo:hover {
+  border-color: var(--sc-color-primary);
+  color: var(--sc-color-primary);
+}
+
+.sc-btn-plazo--activo {
+  border-color: var(--sc-color-primary);
+  background-color: var(--sc-color-primary);
+  color: #ffffff;
+}
+
+.sc-btn-plazo--activo:hover {
+  background-color: var(--sc-color-primary-hover);
+  color: #ffffff;
+}
+
+/* ============================================================
+   Selector de sistema de amortización
+   ============================================================ */
+.sc-selector-sistema {
+  margin-bottom: 0;
+}
+
+.sc-sistema-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sc-btn-sistema {
+  position: relative;
+  padding: 0.625rem 1.25rem;
+  border: 2px solid var(--sc-color-border);
+  border-radius: var(--sc-radius-sm);
+  background-color: var(--sc-color-bg);
+  color: var(--sc-color-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--sc-transition), background-color var(--sc-transition), color var(--sc-transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sc-btn-sistema:hover {
+  border-color: var(--sc-color-primary);
+  color: var(--sc-color-primary);
+}
+
+.sc-btn-sistema--activo {
+  border-color: var(--sc-color-primary);
+  background-color: var(--sc-color-primary);
+  color: #ffffff;
+}
+
+.sc-btn-sistema--activo:hover {
+  background-color: var(--sc-color-primary-hover);
+  color: #ffffff;
+}
+
+.sc-btn-sistema--advertencia {
+  border-color: var(--sc-color-secondary);
+}
+
+.sc-btn-sistema--advertencia.sc-btn-sistema--activo {
+  background-color: var(--sc-color-secondary);
+  border-color: var(--sc-color-secondary);
+  color: #1f2937;
+}
+
+/* ============================================================
+   Badge "Más caro"
+   ============================================================ */
+.sc-badge-caro {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  background-color: var(--sc-color-danger);
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.sc-btn-sistema--activo .sc-badge-caro {
+  background-color: #7f1d1d;
+}
+
+/* ============================================================
+   Badges de fuente y TNA
+   ============================================================ */
+.sc-fuente-badge {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  line-height: 1.4;
+}
+
+.sc-fuente-badge--bcra {
+  background-color: #dcfce7;
+  color: #14532d;
+}
+
+.sc-fuente-badge--manual {
+  background-color: #fef9c3;
+  color: #713f12;
+}
+
+/* ============================================================
+   Resumen resultado
+   ============================================================ */
+.sc-resumen-resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sc-resumen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sc-resumen-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sc-color-text);
+}
+
+.sc-tna-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.sc-tna-label {
+  font-size: 0.75rem;
+  color: var(--sc-color-text-muted);
+}
+
+.sc-tna-valor {
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: var(--sc-font-mono);
+}
+
+.sc-resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.sc-metrica {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background-color: var(--sc-color-bg-secondary);
+  border-radius: var(--sc-radius-sm);
+  border: 1px solid var(--sc-color-border);
+}
+
+.sc-metrica--destacada {
+  border-color: var(--sc-color-primary);
+  background-color: var(--sc-color-bg-sutil);
+}
+
+.sc-metrica--total {
+  border-color: var(--sc-color-secondary);
+}
+
+.sc-metrica-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sc-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sc-metrica-valor {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sc-color-text);
+  font-family: var(--sc-font-mono);
+}
+
+.sc-metrica-valor--grande {
+  font-size: 1.375rem;
+  color: var(--sc-color-primary);
+}
+
+.sc-metrica-valor--total {
+  color: var(--sc-color-secondary);
+}
+
+.sc-metrica-sub {
+  font-size: 0.75rem;
+  color: var(--sc-color-text-muted);
+  font-family: var(--sc-font-mono);
+}
+
+/* ============================================================
+   Gráfico
+   ============================================================ */
+.sc-grafico-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sc-grafico-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sc-color-text);
+}
+
+.sc-tooltip {
+  background-color: var(--sc-color-bg);
+  border: 1px solid var(--sc-color-border);
+  border-radius: var(--sc-radius-sm);
+  padding: 0.625rem 0.875rem;
+  box-shadow: var(--sc-shadow);
+  font-family: var(--sc-font);
+  font-size: 0.8125rem;
+}
+
+.sc-tooltip-titulo {
+  font-weight: 700;
+  margin: 0 0 0.375rem;
+  color: var(--sc-color-text);
+}
+
+.sc-tooltip-item {
+  margin: 0.125rem 0;
+}
+
+.sc-tooltip-total {
+  font-weight: 700;
+  margin: 0.375rem 0 0;
+  padding-top: 0.375rem;
+  border-top: 1px solid var(--sc-color-border);
+  color: var(--sc-color-text);
+}
+
+/* ============================================================
+   Tabla de amortización
+   ============================================================ */
+.sc-tabla-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sc-tabla-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sc-tabla-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sc-color-text);
+}
+
+.sc-btn-toggle {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--sc-color-primary);
+  background: none;
+  border: 1px solid var(--sc-color-primary);
+  border-radius: var(--sc-radius-sm);
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+  transition: background-color var(--sc-transition), color var(--sc-transition);
+}
+
+.sc-btn-toggle:hover {
+  background-color: var(--sc-color-primary);
+  color: #ffffff;
+}
+
+.sc-tabla-scroll {
+  overflow-x: auto;
+  border-radius: var(--sc-radius-sm);
+  border: 1px solid var(--sc-color-border);
+}
+
+.sc-tabla-amortizacion {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.sc-tabla-thead {
+  position: sticky;
+  top: 0;
+  background-color: var(--sc-color-bg-secondary);
+  z-index: 1;
+}
+
+.sc-th {
+  padding: 0.625rem 0.875rem;
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sc-color-text-muted);
+  border-bottom: 2px solid var(--sc-color-border);
+  white-space: nowrap;
+}
+
+.sc-th--numero {
+  text-align: center;
+}
+
+.sc-td {
+  padding: 0.5rem 0.875rem;
+  text-align: right;
+  color: var(--sc-color-text);
+  border-bottom: 1px solid var(--sc-color-border);
+  font-family: var(--sc-font-mono);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.sc-td--numero {
+  text-align: center;
+  font-weight: 700;
+  font-family: var(--sc-font);
+  color: var(--sc-color-text-muted);
+}
+
+.sc-td--monto {
+  text-align: right;
+}
+
+.sc-tr--par {
+  background-color: var(--sc-color-bg);
+}
+
+.sc-tr--impar {
+  background-color: var(--sc-color-bg-secondary);
+}
+
+.sc-tr:hover {
+  background-color: var(--sc-color-bg-sutil);
+}
+
+/* ============================================================
+   Texto comparativo (nota del asesor)
+   ============================================================ */
+.sc-texto-comparativo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sc-texto-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sc-texto-icono {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.sc-texto-titulo {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sc-color-text);
+}
+
+.sc-texto-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sc-texto-parrafo {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--sc-color-text);
+}
+
+/* ============================================================
+   Disclaimer legal
+   ============================================================ */
+.sc-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--sc-radius-sm);
+  background-color: var(--sc-color-bg-secondary);
+  border: 1px solid var(--sc-color-border);
+  margin-top: 0.5rem;
+}
+
+.sc-disclaimer-icono {
+  font-size: 1rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.sc-disclaimer-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sc-disclaimer-texto {
+  font-size: 0.75rem;
+  color: var(--sc-color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sc-disclaimer-fecha {
+  font-size: 0.6875rem;
+  color: var(--sc-color-text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+/* ============================================================
+   Alertas
+   ============================================================ */
+.sc-alerta {
+  padding: 0.75rem 1rem;
+  border-radius: var(--sc-radius-sm);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.sc-alerta--aviso {
+  background-color: var(--sc-color-warning-bg);
+  border: 1px solid var(--sc-color-warning-border);
+  color: #713f12;
+}
+
+/* ============================================================
+   Loading state
+   ============================================================ */
+.sc-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  gap: 1rem;
+}
+
+.sc-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--sc-color-border);
+  border-top-color: var(--sc-color-primary);
+  border-radius: 50%;
+  animation: sc-spin 0.8s linear infinite;
+}
+
+@keyframes sc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sc-loading-texto {
+  color: var(--sc-color-text-muted);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+/* ============================================================
+   Sección de controles
+   ============================================================ */
+.sc-seccion-controles {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+  .sc-simulador-container {
+    padding: 1rem;
+  }
+
+  .sc-titulo {
+    font-size: 1.125rem;
+  }
+
+  .sc-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sc-monto-display {
+    font-size: 1.25rem;
+  }
+
+  .sc-resumen-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sc-metrica--destacada {
+    grid-column: 1 / -1;
+  }
+
+  .sc-plazo-opciones {
+    gap: 0.375rem;
+  }
+
+  .sc-btn-plazo {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .sc-btn-sistema {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+}
